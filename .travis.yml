@@ -3,18 +3,18 @@ services:
   - docker
 
 before_install:
-  - docker build -t axcientsawhney/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t adityasawhney/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true axcientsawhney/react-test npm test -- --coverage
+  - docker run -e CI=true adityasawhney/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t axcientsawhney/multi-client ./client
-  - docker build -t axcientsawhney/multi-nginx ./nginx
-  - docker build -t axcientsawhney/multi-server ./server
-  - docker build -t axcientsawhney/multi-worker ./worker
-  - docker login --username "$DOCKER_ID" --password "$DOCKER_PASSWORD"
-  - docker push axcientsawhney/multi-client
-  - docker push axcientsawhney/multi-nginx
-  - docker push axcientsawhney/multi-server
-  - docker push axcientsawhney/multi-worker
+  - docker build -t adityasawhney/multi-client ./client
+  - docker build -t adityasawhney/multi-nginx ./nginx
+  - docker build -t adityasawhney/multi-server ./server
+  - docker build -t adityasawhney/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push adityasawhney/multi-client
+  - docker push adityasawhney/multi-nginx
+  - docker push adityasawhney/multi-server
+  - docker push adityasawhney/multi-worker
